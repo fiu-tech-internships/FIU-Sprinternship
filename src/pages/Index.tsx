@@ -14,7 +14,6 @@ type BubbleProject = {
   y?: number;
 };
 
-// FIU Brand Color Tokens
 const FIU = {
   blue: '#081E3F',
   blueShade1: '#0A254E',
@@ -41,6 +40,9 @@ const BUBBLE_GRADIENTS = [
 const Index = () => {
   const navigate = useNavigate();
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
+
+  const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
+  const heroOverlay = `${import.meta.env.BASE_URL}hero-bg-image.png`;
 
   const projects: BubbleProject[] = [
     {
@@ -105,9 +107,9 @@ const Index = () => {
         `,
       }}
     >
-      {/* ── Subtle geometric texture overlay ── */}
+      {/* Subtle geometric texture overlay */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage: `
             repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(182,134,44,0.04) 60px, rgba(182,134,44,0.04) 61px),
@@ -116,8 +118,8 @@ const Index = () => {
         }}
       />
 
-      {/* ── Gold accent glow blobs ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Gold accent glow blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div
           className="absolute rounded-full animate-pulse"
           style={{
@@ -152,8 +154,28 @@ const Index = () => {
         />
       </div>
 
-      {/* ── Top centered brand ── */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 w-[92vw] max-w-5xl px-4">
+      {/* Hero transparent PNG overlay */}
+      <img
+        src={heroOverlay}
+        alt="Students from Break Through Tech"
+        className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[860px] object-contain pointer-events-none z-10"
+        style={{
+          left: '50%',
+          transform: 'translateX(-50%) translateY(3%)',
+          opacity: 0.95,
+        }}
+      />
+
+      {/* Soft lower fade for readability */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-[45%] pointer-events-none z-20"
+        style={{
+          background: `linear-gradient(to top, ${FIU.blue}F0 0%, ${FIU.blue}80 35%, transparent 100%)`,
+        }}
+      />
+
+      {/* Top centered brand */}
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[92vw] max-w-5xl px-4">
         <div className="flex flex-col items-center justify-center text-center">
           <button
             onClick={() => navigate('/')}
@@ -168,22 +190,23 @@ const Index = () => {
             />
 
             <div
-                className="mt-2"
-                style={{
-                  height: 3,
-                  borderRadius: 2,
-                  background: `linear-gradient(90deg, transparent, ${FIU.brightGold}, ${FIU.magenta}, transparent)`,
-                  width: '70%',
-                }}
-              />
+              className="mt-2"
+              style={{
+                height: 3,
+                borderRadius: 2,
+                background: `linear-gradient(90deg, transparent, ${FIU.brightGold}, ${FIU.magenta}, transparent)`,
+                width: '70%',
+              }}
+            />
 
             <div className="flex flex-col items-center">
               <p
                 className="text-sm sm:text-base md:text-xl font-semibold uppercase text-center"
                 style={{
                   color: FIU.brightGold,
-                  opacity: 0.85,
+                  opacity: 0.92,
                   letterSpacing: '0.12em',
+                  textShadow: '0 3px 12px rgba(0,0,0,0.45)',
                 }}
               >
                 Sprinternship™ — Our Partnership With Break Through Tech
@@ -193,17 +216,19 @@ const Index = () => {
         </div>
       </div>
 
-      {/* ── Floating project bubbles ── */}
-      {bubbles.map((bubble) => (
-        <FloatingBubble
-          key={`${bubble.id}-${bubble.x}-${bubble.y}`}
-          project={bubble}
-          onClick={() => handleBubbleClick(bubble)}
-        />
-      ))}
+      {/* Floating project bubbles */}
+      <div className="absolute inset-0 z-40">
+        {bubbles.map((bubble) => (
+          <FloatingBubble
+            key={`${bubble.id}-${bubble.x}-${bubble.y}`}
+            project={bubble}
+            onClick={() => handleBubbleClick(bubble)}
+          />
+        ))}
+      </div>
 
-      {/* ── Floating particles ── */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Floating particles */}
+      <div className="absolute inset-0 pointer-events-none z-20">
         {[...Array(20)].map((_, i) => {
           const colors = [FIU.brightGold, FIU.magenta, FIU.cyan, FIU.white];
 
@@ -226,9 +251,9 @@ const Index = () => {
         })}
       </div>
 
-      {/* ── Bottom FIU wordmark bar ── */}
+      {/* Bottom FIU wordmark bar */}
       <div
-        className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-2 px-4 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-2 px-4 pointer-events-none z-50"
         style={{
           borderTop: `1px solid ${FIU.gold}33`,
           background: `linear-gradient(0deg, ${FIU.blue}CC, transparent)`,
@@ -240,7 +265,7 @@ const Index = () => {
             fontFamily: "'Georgia', serif",
             color: FIU.gold,
             letterSpacing: '0.2em',
-            opacity: 0.6,
+            opacity: 0.7,
             textTransform: 'uppercase',
           }}
         >
