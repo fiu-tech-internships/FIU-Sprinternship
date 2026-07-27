@@ -154,14 +154,15 @@ const Index = () => {
         />
       </div>
 
-      {/* Hero transparent PNG overlay */}
+      {/* Hero transparent PNG overlay - vertically centered */}
       <img
         src={heroOverlay}
         alt="Students from Break Through Tech"
-        className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[860px] object-contain pointer-events-none z-10"
+        className="absolute w-full max-w-[860px] object-contain pointer-events-none z-10"
         style={{
+          top: '50%',
           left: '50%',
-          transform: 'translateX(-50%) translateY(3%)',
+          transform: 'translate(-50%, -50%)',
           opacity: 0.95,
         }}
       />
