@@ -168,16 +168,16 @@ const Index = () => {
         }}
       />
 
-      {/* Hero transparent PNG overlay */}
+      {/* Bottom image */}
       <img
-        src={heroOverlay2}
-        alt="Students from Break Through Tech"
-        className="absolute w-full max-w-[860px] object-contain pointer-events-none z-10"
-        style={{
-          top: '53%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.95,
+      src={heroOverlay2}
+      alt="Bottom decorative image"
+      className="absolute w-full max-w-[1100px] object-contain pointer-events-none z-5"
+      style={{
+        bottom: '0',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        opacity: 0.9,
         }}
       />
 
