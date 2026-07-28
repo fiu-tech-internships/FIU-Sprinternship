@@ -154,24 +154,27 @@ const Index = () => {
         />
       </div>
 
-      {/* Hero transparent PNG overlay - vertically centered */}
+      {/* Hero transparent PNG overlay */}
       <img
         src={heroOverlay}
         alt="Students from Break Through Tech"
         className="absolute w-full max-w-[860px] object-contain pointer-events-none z-10"
         style={{
-          top: '50%',
+          top: '53%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           opacity: 0.95,
         }}
       />
 
-      {/* Soft lower fade for readability */}
+      {/* Gradient effect over the hero image */}
       <div
-        className="absolute inset-x-0 bottom-0 h-[45%] pointer-events-none z-20"
+        className="absolute inset-0 pointer-events-none z-20"
         style={{
-          background: `linear-gradient(to top, ${FIU.blue}F0 0%, ${FIU.blue}80 35%, transparent 100%)`,
+          background: `
+            radial-gradient(circle at 50% 55%, transparent 0%, transparent 28%, rgba(8, 30, 63, 0.15) 45%, rgba(8, 30, 63, 0.4) 72%, rgba(8, 30, 63, 0.72) 100%),
+            linear-gradient(to top, rgba(8, 30, 63, 0.92) 0%, rgba(8, 30, 63, 0.55) 28%, rgba(8, 30, 63, 0.12) 58%, rgba(8, 30, 63, 0) 82%)
+          `,
         }}
       />
 
