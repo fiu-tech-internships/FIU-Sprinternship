@@ -43,7 +43,7 @@ const Index = () => {
 
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
-  const heroOverlay2 = `${import.meta.env.BASE_URL}hero-bg-image.png`;
+  {/*const heroOverlay2 = `${import.meta.env.BASE_URL}hero-bg-image.png`;*/}
 
   const projects: BubbleProject[] = [
     {
@@ -165,19 +165,6 @@ const Index = () => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           opacity: 0.95,
-        }}
-      />
-
-      {/* Bottom image */}
-      <img
-      src={heroOverlay2}
-      alt="Bottom decorative image"
-      className="absolute w-full max-w-[1100px] object-contain pointer-events-none z-5"
-      style={{
-        bottom: '0',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        opacity: 0.9,
         }}
       />
 
