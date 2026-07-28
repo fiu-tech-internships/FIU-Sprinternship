@@ -42,7 +42,7 @@ const Index = () => {
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
 
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
-  const heroOverlay = `${import.meta.env.BASE_URL}hero-bg-image.png`;
+  const heroOverlay = `${import.meta.env.BASE_URL}fiu-panther.png`;
 
   const projects: BubbleProject[] = [
     {
