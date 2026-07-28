@@ -42,7 +42,8 @@ const Index = () => {
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
 
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
-  const heroOverlay = `${import.meta.env.BASE_URL}fiu-panther.png`;
+  const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
+  const heroOverlay2 = `${import.meta.env.BASE_URL}hero-bg-image.png`;
 
   const projects: BubbleProject[] = [
     {
@@ -156,7 +157,20 @@ const Index = () => {
 
       {/* Hero transparent PNG overlay */}
       <img
-        src={heroOverlay}
+        src={heroOverlay1}
+        alt="FIU-Panther"
+        className="absolute w-full max-w-[860px] object-contain pointer-events-none z-10"
+        style={{
+          top: '53%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          opacity: 0.95,
+        }}
+      />
+
+      {/* Hero transparent PNG overlay */}
+      <img
+        src={heroOverlay2}
         alt="Students from Break Through Tech"
         className="absolute w-full max-w-[860px] object-contain pointer-events-none z-10"
         style={{
