@@ -178,7 +178,7 @@ const Index = () => {
         top: '75%',              // move the image lower
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        opacity: 0.95,
+        opacity: 0.40,
         zIndex: 12,              // slightly above the panther if you want it visible
         }}
         />
