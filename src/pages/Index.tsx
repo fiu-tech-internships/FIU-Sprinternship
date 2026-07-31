@@ -43,7 +43,7 @@ const Index = () => {
   // Vite-safe public asset paths (works with GitHub Pages base URL)
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
-  // const heroOverlay2 = `${import.meta.env.BASE_URL}hero-bg-image.png`;
+  const heroOverlay2 = `${import.meta.env.BASE_URL}past-sprinterns`;
 
   const projects: BubbleProject[] = [
     {
@@ -159,6 +159,20 @@ const Index = () => {
       {/* Hero panther/logo overlay – large in the center */}
       <img
         src={heroOverlay1}
+        alt="FIU panther logo centered"
+        className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
+        style={{
+          top: '53%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) scale(1.08)',
+          opacity: 0.95,
+          zIndex: 10,
+        }}
+      />
+
+      {/* Hero panther/logo overlay – large in the center */}
+      <img
+        src={heroOverlay2}
         alt="FIU panther logo centered"
         className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
         style={{
