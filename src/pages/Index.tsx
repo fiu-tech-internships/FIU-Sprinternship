@@ -143,17 +143,17 @@ const Index = () => {
 
       {/* Hero panther/logo overlay */}
       <img
-        src={heroOverlay1}
-        alt="FIU panther logo centered"
-        className="absolute w-full max-w-[1300px] object-contain pointer-events-none"
-        style={{
-          top: '53%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) scale(1.18)',
-          opacity: 0.95,
-          zIndex: 10,
-        }}
-      />
+  src={heroOverlay1}
+  alt="FIU panther logo centered"
+  className="absolute w-full max-w-[500px] object-contain pointer-events-none"
+  style={{
+    top: '53%',
+    left: '50%',
+    transform: 'translate(-50%, -50%) scale(0.7)',
+    opacity: 0.95,
+    zIndex: 10,
+  }}
+/>
 
       {/* Orbiting accent dots around the panther */}
       {/* Yellow */}
@@ -215,11 +215,11 @@ const Index = () => {
             aria-label="Go to homepage"
           >
             <img
-              src={fiuLogo}
-              alt="FIU KFSCIS logo"
-              className="h-16 sm:h-20 md:h-24 w-auto object-contain"
-              style={{ filter: `drop-shadow(0 0 14px ${FIU.brightGold}44)` }}
-            />
+  src={fiuLogo}
+  alt="FIU KFSCIS logo"
+  className="h-28 sm:h-32 md:h-40 lg:h-44 w-auto object-contain"
+  style={{ filter: `drop-shadow(0 0 18px ${FIU.brightGold}55)` }}
+/>
 
             <div
               className="mt-2"
