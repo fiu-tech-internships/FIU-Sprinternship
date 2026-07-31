@@ -40,9 +40,10 @@ const Index = () => {
   const navigate = useNavigate();
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
 
+  // Vite-safe public asset paths (works with GitHub Pages base URL)
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
-  {/*const heroOverlay2 = `${import.meta.env.BASE_URL}hero-bg-image.png`;*/}
+  // const heroOverlay2 = `${import.meta.env.BASE_URL}hero-bg-image.png`;
 
   const projects: BubbleProject[] = [
     {
@@ -78,11 +79,12 @@ const Index = () => {
   ];
 
   useEffect(() => {
+    // Keep bubbles clustered around the center, not full-screen
     const newBubbles = projects.map((project) => ({
       ...project,
       color: project.gradient,
-      x: 18 + Math.random() * 64,
-      y: 34 + Math.random() * 38,
+      x: 30 + Math.random() * 40, // 30–70% horizontally
+      y: 30 + Math.random() * 40, // 30–70% vertically
     }));
 
     setBubbles(newBubbles);
@@ -98,7 +100,7 @@ const Index = () => {
 
   return (
     <div
-      className="h-dvh overflow-hidden relative"
+      className="min-h-screen overflow-hidden relative"
       style={{
         background: `
           radial-gradient(ellipse at 20% 30%, ${FIU.blueShade2} 0%, transparent 55%),
@@ -130,7 +132,6 @@ const Index = () => {
             background: `radial-gradient(circle, ${FIU.brightGold}22 0%, transparent 70%)`,
           }}
         />
-
         <div
           className="absolute rounded-full"
           style={{
@@ -142,7 +143,6 @@ const Index = () => {
             animation: 'pulse 4s ease-in-out infinite 1s',
           }}
         />
-        
         <div
           className="absolute rounded-full"
           style={{
@@ -156,19 +156,19 @@ const Index = () => {
         />
       </div>
 
-      {/* Hero transparent PNG overlay */}
+      {/* Hero panther/logo overlay – large in the center */}
       <img
-      src={heroOverlay1}
-      alt="Students from Break Through Tech"
-      className="absolute w-full max-w-[1000px] object-contain pointer-events-none"
-      style={{
-        top: '53%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        opacity: 0.95,
-        zIndex: 10,
+        src={heroOverlay1}
+        alt="FIU panther logo centered"
+        className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
+        style={{
+          top: '53%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) scale(1.08)',
+          opacity: 0.95,
+          zIndex: 10,
         }}
-        />
+      />
 
       {/* Gradient effect over the hero image */}
       <div
@@ -223,8 +223,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Floating project bubbles */}
-      <div className="absolute inset-0 z-40">
+      {/* Floating project bubbles – clustered around center */}
+      <div className="absolute inset-0 z-30">
         {bubbles.map((bubble) => (
           <FloatingBubble
             key={`${bubble.id}-${bubble.x}-${bubble.y}`}
