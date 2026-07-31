@@ -217,8 +217,8 @@ const Index = () => {
             <img
   src={fiuLogo}
   alt="FIU KFSCIS logo"
-  className="h-28 sm:h-32 md:h-40 lg:h-44 w-auto object-contain"
-  style={{ filter: `drop-shadow(0 0 18px ${FIU.brightGold}55)` }}
+  className="h-36 sm:h-40 md:h-48 lg:h-56 w-auto object-contain"
+  style={{ filter: `drop-shadow(0 0 22px ${FIU.brightGold}66)` }}
 />
 
             <div
