@@ -41,7 +41,7 @@ const Index = () => {
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
 
   // Vite-safe public asset paths (works with GitHub Pages base URL)
-  const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo2.png`;
+  const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
 
   const projects: BubbleProject[] = [
@@ -161,7 +161,7 @@ const Index = () => {
         alt="FIU panther logo centered"
         className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
         style={{
-          top: '45%', // position you liked
+          top: '53%', // position you liked
           left: '50%',
           transform: 'translate(-50%, -50%) scale(1.08)',
           opacity: 0.95,
@@ -190,7 +190,7 @@ const Index = () => {
             <img
             src={fiuLogo}
             alt="FIU KFSCIS logo"
-            className="h-20 sm:h-24 md:h-28 w-auto object-contain"
+            className="h-16 sm:h-20 md:h-24 w-auto object-contain"
             style={{ filter: `drop-shadow(0 0 14px ${FIU.brightGold}44)` }}
             />
 
