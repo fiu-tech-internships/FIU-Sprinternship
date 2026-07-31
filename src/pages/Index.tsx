@@ -169,9 +169,40 @@ const Index = () => {
         }}
       />
 
-      {/* Gold orbiting accent dot around the panther */}
+      {/* Orbiting accent dots around the panther */}
+      {/* Gold (original) */}
       <div
         className="absolute top-1/2 left-1/2 w-4 h-4 rounded-full animate-orbit-1"
+        style={{
+          backgroundColor: FIU.brightGold,
+          boxShadow: 'rgb(255, 204, 0) 0px 0px 8px',
+          zIndex: 15,
+        }}
+      />
+
+      {/* Magenta (larger, slower, different start) */}
+      <div
+        className="absolute top-1/2 left-1/2 w-4 h-4 rounded-full animate-orbit-2"
+        style={{
+          backgroundColor: FIU.magenta,
+          boxShadow: 'rgb(204, 0, 102) 0px 0px 8px',
+          zIndex: 15,
+        }}
+      />
+
+      {/* Cyan (smaller radius, faster) */}
+      <div
+        className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full animate-orbit-3"
+        style={{
+          backgroundColor: FIU.cyan,
+          boxShadow: 'rgb(0, 255, 255) 0px 0px 8px',
+          zIndex: 15,
+        }}
+      />
+
+      {/* Second gold (medium radius, different speed) */}
+      <div
+        className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full animate-orbit-4"
         style={{
           backgroundColor: FIU.brightGold,
           boxShadow: 'rgb(255, 204, 0) 0px 0px 8px',

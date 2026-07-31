@@ -93,7 +93,7 @@
   }
 }
 
-/* Orbiting gold dot animation */
+/* Orbiting gold dot animation (original) */
 @keyframes orbit-1 {
   0% {
     transform: rotate(0deg) translate(120px) rotate(0deg);
@@ -103,6 +103,48 @@
   }
 }
 
+/* Magenta: larger, slower, starts at a different angle */
+@keyframes orbit-2 {
+  0% {
+    transform: rotate(90deg) translate(160px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(450deg) translate(160px) rotate(-360deg);
+  }
+}
+
+/* Cyan: smaller radius, faster, opposite direction feel */
+@keyframes orbit-3 {
+  0% {
+    transform: rotate(180deg) translate(90px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(-180deg) translate(90px) rotate(360deg);
+  }
+}
+
+/* Second gold: medium radius, different speed and start angle */
+@keyframes orbit-4 {
+  0% {
+    transform: rotate(270deg) translate(140px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(630deg) translate(140px) rotate(-360deg);
+  }
+}
+
 .animate-orbit-1 {
   animation: orbit-1 10s linear infinite;
+}
+
+.animate-orbit-2 {
+  animation: orbit-2 14s linear infinite;
+}
+
+.animate-orbit-3 {
+  animation: orbit-3 8s linear infinite;
+}
+
+.animate-orbit-4 {
+  animation: orbit-4 12s linear infinite;
 }
