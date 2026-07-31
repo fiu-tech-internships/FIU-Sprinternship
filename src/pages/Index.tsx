@@ -170,20 +170,6 @@ const Index = () => {
         }}
       />
 
-      {/* Past sprinterns image placed lower */}
-      <img
-        src={heroOverlay2}
-        alt="Past sprinterns"
-        className="absolute w-full max-w-[900px] object-contain pointer-events-none"
-        style={{
-          top: '75%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.95,
-          zIndex: 12,
-        }}
-      />
-
       {/* Subtle gradient over hero area */}
       <div
         className="absolute inset-0 pointer-events-none z-20"
