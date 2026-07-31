@@ -220,23 +220,64 @@ const Index = () => {
         }}
       />
 
-      {/* Top centered brand */}
+      {/* Top centered brand with white-glow circular logo card */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[92vw] max-w-5xl px-4">
         <div className="flex flex-col items-center justify-center text-center">
           <button
             onClick={() => navigate('/')}
-            className="flex flex-col items-center gap-3 bg-transparent border-none cursor-pointer p-0 text-center"
+            className="bg-transparent border-none cursor-pointer p-0 text-center"
             aria-label="Go to homepage"
           >
-            <img
-              src={fiuLogo}
-              alt="FIU KFSCIS logo"
-              className="h-16 sm:h-20 md:h-24 w-auto object-contain"
-              style={{ filter: `drop-shadow(0 0 14px ${FIU.brightGold}44)` }}
-            />
+            {/* White-glow circular logo card */}
+            <div
+              className="relative w-48 h-48 md:w-64 md:h-64 rounded-full p-4 shadow-2xl transform hover:scale-110 transition-all duration-300"
+              style={{
+                background: `linear-gradient(135deg, ${FIU.blueShade2}, ${FIU.blue})`,
+                boxShadow:
+                  'rgba(255, 255, 255, 0.35) 0px 0px 32px, rgba(255, 255, 255, 0.2) 0px 0px 64px',
+              }}
+            >
+              <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-white">
+                <img
+                  src={fiuLogo}
+                  alt="FIU KFSCIS logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              {/* Orbiting dots around the logo card */}
+              <div
+                className="absolute top-0 left-1/2 w-4 h-4 rounded-full animate-orbit-1"
+                style={{
+                  backgroundColor: FIU.brightGold,
+                  boxShadow: 'rgb(255, 204, 0) 0px 0px 8px',
+                }}
+              />
+              <div
+                className="absolute top-1/2 right-0 w-3 h-3 rounded-full animate-orbit-2"
+                style={{
+                  backgroundColor: FIU.magenta,
+                  boxShadow: 'rgb(204, 0, 102) 0px 0px 8px',
+                }}
+              />
+              <div
+                className="absolute bottom-0 left-1/2 w-4 h-4 rounded-full animate-orbit-3"
+                style={{
+                  backgroundColor: FIU.cyan,
+                  boxShadow: 'rgb(0, 255, 255) 0px 0px 8px',
+                }}
+              />
+              <div
+                className="absolute top-1/2 left-0 w-3 h-3 rounded-full animate-orbit-4"
+                style={{
+                  backgroundColor: FIU.gold,
+                  boxShadow: 'rgb(182, 134, 44) 0px 0px 8px',
+                }}
+              />
+            </div>
 
             <div
-              className="mt-2"
+              className="mt-4"
               style={{
                 height: 3,
                 borderRadius: 2,
