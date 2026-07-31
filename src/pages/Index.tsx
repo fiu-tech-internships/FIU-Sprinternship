@@ -157,17 +157,17 @@ const Index = () => {
 
       {/* Hero panther/logo overlay – original position */}
       <img
-        src={heroOverlay1}
-        alt="FIU panther logo centered"
-        className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
-        style={{
-          top: '53%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) scale(1.08)',
-          opacity: 0.95,
-          zIndex: 10,
+      src={heroOverlay1}
+      alt="FIU panther logo centered"
+      className="absolute w-full max-w-[1300px] object-contain pointer-events-none"
+      style={{
+        top: '53%',
+        left: '50%',
+        transform: 'translate(-50%, -50%) scale(1.18)',
+        opacity: 0.95,
+        zIndex: 10,
         }}
-      />
+        />
 
       {/* Subtle gradient over hero area */}
       <div
