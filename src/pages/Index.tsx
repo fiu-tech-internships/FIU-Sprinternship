@@ -169,6 +169,16 @@ const Index = () => {
         }}
       />
 
+      {/* Gold orbiting accent dot around the panther */}
+      <div
+        className="absolute top-1/2 left-1/2 w-4 h-4 rounded-full animate-orbit-1"
+        style={{
+          backgroundColor: FIU.brightGold,
+          boxShadow: 'rgb(255, 204, 0) 0px 0px 8px',
+          zIndex: 15,
+        }}
+      />
+
       {/* Subtle gradient over hero area */}
       <div
         className="absolute inset-0 pointer-events-none z-20"

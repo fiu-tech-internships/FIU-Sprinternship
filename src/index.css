@@ -35,19 +35,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -98,4 +91,18 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Orbiting gold dot animation */
+@keyframes orbit-1 {
+  0% {
+    transform: rotate(0deg) translate(120px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translate(120px) rotate(-360deg);
+  }
+}
+
+.animate-orbit-1 {
+  animation: orbit-1 10s linear infinite;
 }
