@@ -178,21 +178,20 @@ const Index = () => {
         top: '75%',              // move the image lower
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        opacity: 100,
+        opacity: 0.95,
         zIndex: 12,              // slightly above the panther if you want it visible
         }}
         />
 
       {/* Gradient effect over the hero image */}
       <div
-        className="absolute inset-0 pointer-events-none z-20"
-        style={{
-          background: `
-            radial-gradient(circle at 50% 55%, transparent 0%, transparent 28%, rgba(8, 30, 63, 0.15) 45%, rgba(8, 30, 63, 0.4) 72%, rgba(8, 30, 63, 0.72) 100%),
-            linear-gradient(to top, rgba(8, 30, 63, 0.92) 0%, rgba(8, 30, 63, 0.55) 28%, rgba(8, 30, 63, 0.12) 58%, rgba(8, 30, 63, 0) 82%)
-          `,
+      className="absolute inset-0 pointer-events-none z-20"
+      style={{
+        background: `
+        radial-gradient(circle at 50% 55%, transparent 0%, transparent 70%, rgba(8, 30, 63, 0.1) 95%, rgba(8, 30, 63, 0.15) 100%)
+        `,
         }}
-      />
+        />
 
       {/* Top centered brand */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[92vw] max-w-5xl px-4">
