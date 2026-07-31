@@ -79,16 +79,16 @@ const Index = () => {
   ];
 
   useEffect(() => {
-    // Keep bubbles clustered around the center, not full-screen
-    const newBubbles = projects.map((project) => ({
-      ...project,
-      color: project.gradient,
-      x: 30 + Math.random() * 40, // 30–70% horizontally
-      y: 30 + Math.random() * 40, // 30–70% vertically
-    }));
+  // Place bubbles over the bottom heroOverlay2 image area
+  const newBubbles = projects.map((project) => ({
+    ...project,
+    color: project.gradient,
+    x: 30 + Math.random() * 40, // 30–70% horizontally
+    y: 60 + Math.random() * 20, // 60–80% vertically (around past-sprinterns)
+  }));
 
-    setBubbles(newBubbles);
-  }, []);
+  setBubbles(newBubbles);
+}, []);
 
   const handleBubbleClick = (project: BubbleProject) => {
     if (project.url) {
