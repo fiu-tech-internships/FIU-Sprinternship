@@ -170,19 +170,18 @@ const Index = () => {
         }}
       />
 
-      {/*past-sprinterns*/}
       <img
-        src={heroOverlay2}
-        alt="past-sprinterns"
-        className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
-        style={{
-          top: '53%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) scale(1.08)',
-          opacity: 0.95,
-          zIndex: 10,
+      src={heroOverlay2}
+      alt="Past sprinterns"
+      className="absolute w-full max-w-[900px] object-contain pointer-events-none"
+      style={{
+        top: '75%',              // move the image lower
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        opacity: 0.95,
+        zIndex: 12,              // slightly above the panther if you want it visible
         }}
-      />
+        />
 
       {/* Gradient effect over the hero image */}
       <div
