@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { usePhysics } from '../hooks/usePhysics';
 
 interface FloatingBubbleProps {
   project: {
@@ -8,7 +6,7 @@ interface FloatingBubbleProps {
     name: string;
     icon?: string;
     img?: string;
-    color: string;   
+    color: string;
     x: number;
     y: number;
     animationDelay?: number;
@@ -18,8 +16,9 @@ interface FloatingBubbleProps {
   resetTrigger?: number;
 }
 
-const FloatingBubble: React.FC<FloatingBubbleProps> = ({ project, onClick, resetTrigger }) => {
-  const position = usePhysics(project.x, project.y, 0.3, resetTrigger);
+const FloatingBubble: React.FC<FloatingBubbleProps> = ({ project, onClick }) => {
+  // For this hero layout, keep bubbles at their given positions
+  const position = { x: project.x, y: project.y };
 
   // Detect whether color is already a gradient string or a plain hex/named color
   const isGradient = project.color.includes('gradient');
@@ -28,14 +27,13 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({ project, onClick, reset
     : `linear-gradient(135deg, ${project.color}dd, ${project.color}aa)`;
 
   // For the ping glow, extract a base color to use as a solid
-  // If it's a gradient, pull the first hex value from it; otherwise use as-is
   const glowColor = isGradient
     ? (project.color.match(/#[0-9a-fA-F]{6}/)?.[0] ?? '#FFCC00')
     : project.color;
 
   return (
     <div
-      className="absolute cursor-pointer text-2xl md:text-3xl z-30"
+      className="absolute cursor-pointer z-30"
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
@@ -45,7 +43,7 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({ project, onClick, reset
       onClick={onClick}
     >
       <div
-        className="w-20 h-20 md:w-24 md:h-24 rounded-full flex flex-col items-center justify-center shadow-2xl animate-float hover:animate-pulse"
+        className="w-16 h-16 md:w-20 md:h-20 rounded-full flex flex-col items-center justify-center shadow-2xl"
         style={{ background: bubbleBackground }}
       >
         <div className="mb-1 flex items-center justify-center">
@@ -53,13 +51,13 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({ project, onClick, reset
             <img
               src={project.img}
               alt={project.name}
-              className="w-10 h-10 md:w-12 md:h-12 object-contain"
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
             />
           ) : (
-            <span className="text-2xl md:text-3xl">{project.icon}</span>
+            <span className="text-sm md:text-base">{project.icon}</span>
           )}
         </div>
-        <div className="text-white text-xs md:text-sm font-bold text-center px-1 drop-shadow">
+        <div className="text-white text-[0.65rem] md:text-xs font-bold text-center px-1 drop-shadow">
           {project.name}
         </div>
       </div>
