@@ -78,16 +78,16 @@ const Index = () => {
   ];
 
   useEffect(() => {
-  // Keep bubbles only in the upper/middle area, away from the bottom image + gradient
-  const newBubbles = projects.map((project) => ({
-    ...project,
-    color: project.gradient,
-    x: 30 + Math.random() * 40, // 30–70% horizontally
-    y: 20 + Math.random() * 25, // 20–45% vertically (well above heroOverlay2)
-  }));
+    // Keep bubbles only in the upper/middle area
+    const newBubbles = projects.map((project) => ({
+      ...project,
+      color: project.gradient,
+      x: 30 + Math.random() * 40, // 30–70% horizontally
+      y: 20 + Math.random() * 25, // 20–45% vertically
+    }));
 
-  setBubbles(newBubbles);
-}, []);
+    setBubbles(newBubbles);
+  }, []);
 
   const handleBubbleClick = (project: BubbleProject) => {
     if (project.url) {
@@ -155,13 +155,13 @@ const Index = () => {
         />
       </div>
 
-      {/* Hero panther/logo overlay – large in the center */}
+      {/* Hero panther/logo overlay – original position */}
       <img
         src={heroOverlay1}
         alt="FIU panther logo centered"
         className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
         style={{
-          top: '53%', // position you liked
+          top: '53%',
           left: '50%',
           transform: 'translate(-50%, -50%) scale(1.08)',
           opacity: 0.95,
@@ -188,10 +188,10 @@ const Index = () => {
             aria-label="Go to homepage"
           >
             <img
-            src={fiuLogo}
-            alt="FIU KFSCIS logo"
-            className="h-16 sm:h-20 md:h-24 w-auto object-contain"
-            style={{ filter: `drop-shadow(0 0 14px ${FIU.brightGold}44)` }}
+              src={fiuLogo}
+              alt="FIU KFSCIS logo"
+              className="h-16 sm:h-20 md:h-24 w-auto object-contain"
+              style={{ filter: `drop-shadow(0 0 14px ${FIU.brightGold}44)` }}
             />
 
             <div
@@ -221,7 +221,7 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Floating project bubbles – clustered around center */}
+      {/* Floating project bubbles – clustered around upper/middle */}
       <div className="absolute inset-0 z-45">
         {bubbles.map((bubble) => (
           <FloatingBubble
@@ -255,21 +255,6 @@ const Index = () => {
           );
         })}
       </div>
-
-      {/* Stronger bottom fade for clarity behind the wordmark */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-[45%] pointer-events-none z-40"
-        style={{
-          background: `linear-gradient(
-            to top,
-            rgba(8, 30, 63, 1) 0%,
-            rgba(8, 30, 63, 0.96) 20%,
-            rgba(8, 30, 63, 0.82) 40%,
-            rgba(8, 30, 63, 0.45) 70%,
-            rgba(8, 30, 63, 0) 100%
-          )`,
-        }}
-      />
 
       {/* Bottom FIU wordmark bar */}
       <div
