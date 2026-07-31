@@ -156,7 +156,6 @@ const Index = () => {
       </div>
 
       {/* Hero panther/logo overlay – larger at original position */}
-            {/* Hero panther/logo overlay – larger at original position */}
       <img
         src={heroOverlay1}
         alt="FIU panther logo centered"
@@ -167,8 +166,6 @@ const Index = () => {
           transform: 'translate(-50%, -50%) scale(1.18)',
           opacity: 0.95,
           zIndex: 10,
-          boxShadow:
-            'rgba(255, 204, 0, 0.25) 0px 0px 32px, rgba(204, 0, 102, 0.15) 0px 0px 64px',
         }}
       />
 
