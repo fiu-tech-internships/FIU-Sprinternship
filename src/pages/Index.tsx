@@ -41,7 +41,7 @@ const Index = () => {
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
 
   // Vite-safe public asset paths (works with GitHub Pages base URL)
-  const fiuLogo = `${import.meta.env.BASE_URL}fiu-logo2.png`;
+  const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo2.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
   const heroOverlay2 = `${import.meta.env.BASE_URL}past-sprinterns.png`;
 
