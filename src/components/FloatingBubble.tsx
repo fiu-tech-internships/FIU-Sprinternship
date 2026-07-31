@@ -64,7 +64,7 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
         </div>
 
         {/* Label text in black */}
-        <div className="text-white text-xs md:text-base font-bold text-center px-2 drop-shadow-none">
+        <div className="text-white text-xs md:text-lg font-bold text-center px-2 drop-shadow-none">
           {project.name}
         </div>
       </div>
