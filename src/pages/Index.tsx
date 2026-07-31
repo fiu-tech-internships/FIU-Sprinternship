@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import fiuLogo from '/public/fiu-kfscis-logo.png';
 import FloatingBubble from '../components/FloatingBubble';
 import { useNavigate } from 'react-router-dom';
 
@@ -131,6 +130,7 @@ const Index = () => {
             background: `radial-gradient(circle, ${FIU.brightGold}22 0%, transparent 70%)`,
           }}
         />
+
         <div
           className="absolute rounded-full"
           style={{
@@ -142,6 +142,7 @@ const Index = () => {
             animation: 'pulse 4s ease-in-out infinite 1s',
           }}
         />
+        
         <div
           className="absolute rounded-full"
           style={{
