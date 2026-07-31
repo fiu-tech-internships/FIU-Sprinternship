@@ -157,16 +157,17 @@ const Index = () => {
 
       {/* Hero transparent PNG overlay */}
       <img
-        src={heroOverlay1}
-        alt="FIU-Panther"
-        className="absolute w-full max-w-[860px] object-contain pointer-events-none z-10"
-        style={{
-          top: '53%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.95,
+      src={heroOverlay1}
+      alt="Students from Break Through Tech"
+      className="absolute w-full max-w-[1000px] object-contain pointer-events-none"
+      style={{
+        top: '53%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        opacity: 0.95,
+        zIndex: 10,
         }}
-      />
+        />
 
       {/* Gradient effect over the hero image */}
       <div
