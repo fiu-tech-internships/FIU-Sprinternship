@@ -162,7 +162,7 @@ const Index = () => {
         alt="FIU panther logo centered"
         className="absolute w-full max-w-[1100px] object-contain pointer-events-none"
         style={{
-          top: '45%',
+          top: '45%', // position you liked
           left: '50%',
           transform: 'translate(-50%, -50%) scale(1.08)',
           opacity: 0.95,
@@ -170,28 +170,29 @@ const Index = () => {
         }}
       />
 
+      {/* Past sprinterns image placed lower */}
       <img
-      src={heroOverlay2}
-      alt="Past sprinterns"
-      className="absolute w-full max-w-[900px] object-contain pointer-events-none"
-      style={{
-        top: '75%',              // move the image lower
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        opacity: 0.95,
-        zIndex: 12,              // slightly above the panther if you want it visible
+        src={heroOverlay2}
+        alt="Past sprinterns"
+        className="absolute w-full max-w-[900px] object-contain pointer-events-none"
+        style={{
+          top: '75%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          opacity: 0.95,
+          zIndex: 12,
         }}
-        />
+      />
 
-      {/* Gradient effect over the hero image */}
+      {/* Subtle gradient over hero area */}
       <div
-      className="absolute inset-0 pointer-events-none z-20"
-      style={{
-        background: `
-        radial-gradient(circle at 50% 55%, transparent 0%, transparent 70%, rgba(8, 30, 63, 0.1) 95%, rgba(8, 30, 63, 0.15) 100%)
-        `,
+        className="absolute inset-0 pointer-events-none z-20"
+        style={{
+          background: `
+            radial-gradient(circle at 50% 55%, transparent 0%, transparent 70%, rgba(8, 30, 63, 0.1) 95%, rgba(8, 30, 63, 0.15) 100%)
+          `,
         }}
-        />
+      />
 
       {/* Top centered brand */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[92vw] max-w-5xl px-4">
@@ -270,6 +271,21 @@ const Index = () => {
         })}
       </div>
 
+      {/* Stronger bottom fade for clarity behind the wordmark */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-[45%] pointer-events-none z-40"
+        style={{
+          background: `linear-gradient(
+            to top,
+            rgba(8, 30, 63, 1) 0%,
+            rgba(8, 30, 63, 0.96) 20%,
+            rgba(8, 30, 63, 0.82) 40%,
+            rgba(8, 30, 63, 0.45) 70%,
+            rgba(8, 30, 63, 0) 100%
+          )`,
+        }}
+      />
+
       {/* Bottom FIU wordmark bar */}
       <div
         className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-2 px-4 pointer-events-none z-50"
@@ -284,7 +300,7 @@ const Index = () => {
             fontFamily: "'Georgia', serif",
             color: FIU.gold,
             letterSpacing: '0.2em',
-            opacity: 0.7,
+            opacity: 0.8,
             textTransform: 'uppercase',
           }}
         >
