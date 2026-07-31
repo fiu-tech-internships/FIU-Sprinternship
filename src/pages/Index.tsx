@@ -237,7 +237,7 @@ const Index = () => {
       </div>
 
       {/* Floating project bubbles – clustered around center */}
-      <div className="absolute inset-0 z-30">
+      <div className="absolute inset-0 z-45">
         {bubbles.map((bubble) => (
           <FloatingBubble
             key={`${bubble.id}-${bubble.x}-${bubble.y}`}
