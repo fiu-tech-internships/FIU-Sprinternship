@@ -41,7 +41,7 @@ const Index = () => {
   const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
 
   // Vite-safe public asset paths (works with GitHub Pages base URL)
-  const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo.png`;
+  const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo2.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
 
   const projects: BubbleProject[] = [
@@ -82,8 +82,8 @@ const Index = () => {
     const newBubbles = projects.map((project) => ({
       ...project,
       color: project.gradient,
-      x: 30 + Math.random() * 40, // 30–70% horizontally
-      y: 20 + Math.random() * 25, // 20–45% vertically
+      x: 10 + Math.random() * 80, 
+      y: 15 + Math.random() * 70,
     }));
 
     setBubbles(newBubbles);
@@ -119,58 +119,44 @@ const Index = () => {
         }}
       />
 
-      {/* Gold accent glow blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div
-          className="absolute rounded-full animate-pulse"
-          style={{
-            width: 320,
-            height: 320,
-            top: '-80px',
-            left: '-80px',
-            background: `radial-gradient(circle, ${FIU.brightGold}22 0%, transparent 70%)`,
-          }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 260,
-            height: 260,
-            bottom: '-60px',
-            right: '-60px',
-            background: `radial-gradient(circle, ${FIU.magenta}1A 0%, transparent 70%)`,
-            animation: 'pulse 4s ease-in-out infinite 1s',
-          }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 180,
-            height: 180,
-            top: '40%',
-            right: '5%',
-            background: `radial-gradient(circle, ${FIU.cyan}15 0%, transparent 70%)`,
-            animation: 'pulse 5s ease-in-out infinite 2s',
-          }}
-        />
+      {/* ── Floating particles ── */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => {
+          const colors = [FIU.brightGold, FIU.magenta, FIU.cyan, FIU.white];
+          return (
+            <div
+              key={i}
+              className="absolute rounded-full animate-ping"
+              style={{
+                width: 4, height: 4,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                background: colors[i % colors.length],
+                opacity: 0.25,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Hero panther/logo overlay – larger at original position */}
       <img
         src={heroOverlay1}
         alt="FIU panther logo centered"
-        className="absolute w-full max-w-[1300px] object-contain pointer-events-none"
+        className="absolute w-full max-w-none object-contain pointer-events-none"
         style={{
           top: '53%',
           left: '50%',
-          transform: 'translate(-50%, -50%) scale(1.18)',
+          transform: 'translate(-50%, -50%) scale(1.6)',
           opacity: 0.95,
           zIndex: 10,
         }}
       />
 
       {/* Orbiting accent dots around the panther */}
-      {/* Gold (original) */}
+      {/* Yellow */}
       <div
         className="absolute top-1/2 left-1/2 w-4 h-4 rounded-full animate-orbit-1"
         style={{
@@ -200,12 +186,12 @@ const Index = () => {
         }}
       />
 
-      {/* Second gold (medium radius, different speed) */}
+      {/* Gold (medium radius, different speed) */}
       <div
         className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full animate-orbit-4"
         style={{
           backgroundColor: FIU.brightGold,
-          boxShadow: 'rgb(255, 204, 0) 0px 0px 8px',
+          boxShadow: 'rgb(182, 134, 44) 0px 0px 8px',
           zIndex: 15,
         }}
       />
