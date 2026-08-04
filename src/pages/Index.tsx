@@ -47,7 +47,7 @@ const Index = () => {
   const projects: BubbleProject[] = [
     {
       id: 1,
-      name: 'Sprinternship',
+      name: 'Sprinternship™',
       url: 'https://webs.cs.fiu.edu/sprinternship/',
       gradient: BUBBLE_GRADIENTS[0],
     },
