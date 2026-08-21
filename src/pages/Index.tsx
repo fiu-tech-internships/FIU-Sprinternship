@@ -59,7 +59,7 @@ const Index = () => {
     },
     {
       id: 3,
-      name: 'Sistas',
+      name: 'Upskilling Workshops',
       url: 'https://webs.cs.fiu.edu/sprinternship/sistas/',
       gradient: BUBBLE_GRADIENTS[2],
     },
