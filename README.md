@@ -55,3 +55,7 @@ This documentation is designed for:
 ## Need Help?
 
 If you encounter issues not covered here, contact the repository maintainer.
+
+
+Copyright © 2026 FIU Sprinternship™. All rights reserved.
+This project and its source code may not be copied, modified, distributed, reproduced, or used in other projects without explicit permission from the copyright holder.
