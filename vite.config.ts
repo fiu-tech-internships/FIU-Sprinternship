@@ -17,5 +17,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/FIU-Sprinternship-Shirina/",
+  base: "/FIU-Sprinternship/",
 }));
