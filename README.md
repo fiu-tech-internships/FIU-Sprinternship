@@ -40,9 +40,8 @@ Welcome to the documentation for the FIU Tech Internships website. This guide wi
 
 ## Quick Reference
 
-- **Live Website**: [https://fiu-tech-internships.vercel.app/](https://fiu-tech-internships.vercel.app/) 
-> **Note:** Change the link here after the project is moved to a different GitHub Owner
-- **GitHub Repository**: [https://github.com/KLAW4life/FIU-Tech-Internships](https://github.com/KLAW4life/FIU-Tech-Internships)
+- **Live Website**: [https://fiu-tech-internships.github.io/FIU-Sprinternship/](https://fiu-tech-internships.github.io/FIU-Sprinternship/) 
+- **GitHub Repository**: [https://github.com/fiu-tech-internships/FIU-Sprinternship](https://github.com/fiu-tech-internships/FIU-Sprinternship)
 - **Tech Stack**: React, TypeScript, Vite, Tailwind CSS
 
 ## Who Is This For?
