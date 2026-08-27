@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePhysics } from '../hooks/usePhysics';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface FloatingBubbleProps {
   project: {
@@ -8,6 +9,7 @@ interface FloatingBubbleProps {
     icon?: string;
     img?: string;
     color: string;
+    textColor?: string;
     x: number;
     y: number;
     animationDelay?: number;
@@ -22,7 +24,9 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
   onClick,
   resetTrigger,
 }) => {
-  const position = usePhysics(project.x, project.y, 0.3, resetTrigger);
+  const isMobile = useIsMobile();
+  const bubbleRadius = isMobile ? 64 : 72;
+  const position = usePhysics(project.x, project.y, 0.3, resetTrigger, bubbleRadius);
 
   const isGradient = project.color.includes('gradient');
   const bubbleBackground = isGradient
@@ -33,12 +37,17 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
     ? (project.color.match(/#[0-9a-fA-F]{6}/)?.[0] ?? '#FFCC00')
     : project.color;
 
+  const textColor = project.textColor ?? '#FFFFFF';
+  const textShadow = project.textColor
+    ? '0 1px 2px rgba(255, 255, 255, 0.55)'
+    : '0 2px 5px rgba(8, 30, 63, 0.95), 0 0 2px rgba(8, 30, 63, 0.9)';
+
   return (
     <div
-      className="absolute cursor-pointer z-30"
+      className="absolute z-30 cursor-pointer"
       style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
+        left: `${(position.x / 100) * window.innerWidth - bubbleRadius}px`,
+        top: `${(position.y / 100) * window.innerHeight - bubbleRadius}px`,
         animationDelay: `${project.animationDelay ?? 0}s`,
         animationDuration: `${project.animationDuration ?? 3}s`,
       }}
@@ -46,7 +55,8 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
     >
       {/* Bigger bubble container */}
       <div
-        className="w-24 h-24 md:w-28 md:h-28 rounded-full flex flex-col items-center justify-center shadow-2xl animate-float hover:animate-pulse"
+        data-bubble
+        className="w-32 h-32 md:w-36 md:h-36 rounded-full flex flex-col items-center justify-center shadow-2xl hover:animate-pulse"
         style={{ background: bubbleBackground }}
       >
         <div className="mb-1 flex items-center justify-center">
@@ -61,15 +71,19 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
           )}
         </div>
 
-        {/* Slightly larger text inside the bubble */}
-        <div className="text-white text-sm md:text-base font-bold text-center px-2 drop-shadow">
+        {/* High-contrast text sized to remain inside the bubble on narrow screens */}
+        <div
+          data-bubble-label
+          className="relative z-10 w-[calc(100%-1rem)] text-[13px] sm:text-sm md:text-base font-extrabold leading-tight tracking-[-0.025em] text-center [overflow-wrap:anywhere]"
+          style={{ color: textColor, textShadow }}
+        >
           {project.name}
         </div>
       </div>
 
       {/* Glowing ping effect using extracted base color */}
       <div
-        className="absolute inset-0 rounded-full opacity-30 animate-ping"
+        className="absolute inset-0 rounded-full opacity-30 animate-ping pointer-events-none"
         style={{ backgroundColor: glowColor }}
       />
     </div>
