@@ -9,7 +9,6 @@ type BubbleProject = {
   path?: string;
   gradient: string;
   color?: string;
-  textColor?: string;
   x?: number;
   y?: number;
 };
@@ -27,7 +26,7 @@ const FIU = {
 
 const BUBBLE_GRADIENTS = [
   `linear-gradient(135deg, ${FIU.brightGold}, ${FIU.magenta})`,
-  `linear-gradient(135deg, ${FIU.brightGold}, ${FIU.cyan})`,
+  `linear-gradient(135deg, ${FIU.cyan}, ${FIU.magenta})`,
   `linear-gradient(135deg, ${FIU.magenta}, ${FIU.brightGold})`,
   `linear-gradient(135deg, ${FIU.cyan}, ${FIU.magenta})`,
   `linear-gradient(135deg, ${FIU.brightGold}, #FF3399)`,
@@ -35,40 +34,6 @@ const BUBBLE_GRADIENTS = [
   `linear-gradient(135deg, ${FIU.cyan}, ${FIU.brightGold})`,
   `linear-gradient(135deg, ${FIU.magenta}, ${FIU.cyan})`,
   `linear-gradient(135deg, ${FIU.brightGold}, ${FIU.magenta})`,
-];
-
-const PROJECTS: BubbleProject[] = [
-  {
-    id: 1,
-    name: 'Sprinternship™',
-    url: 'https://webs.cs.fiu.edu/sprinternship/',
-    gradient: BUBBLE_GRADIENTS[0],
-  },
-  {
-    id: 2,
-    name: 'Partners',
-    url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship-industry/',
-    gradient: BUBBLE_GRADIENTS[1],
-    textColor: FIU.blue,
-  },
-  {
-    id: 3,
-    name: 'Upskilling Workshops',
-    url: 'https://webs.cs.fiu.edu/sprinternship/sistas/',
-    gradient: BUBBLE_GRADIENTS[2],
-  },
-  {
-    id: 4,
-    name: 'Career Roadmap',
-    url: 'https://webs.cs.fiu.edu/sprinternship/roadmap/',
-    gradient: BUBBLE_GRADIENTS[3],
-  },
-  {
-    id: 5,
-    name: 'Research',
-    url: 'https://webs.cs.fiu.edu/sprinternship/research/',
-    gradient: BUBBLE_GRADIENTS[4],
-  },
 ];
 
 const Index = () => {
@@ -79,9 +44,42 @@ const Index = () => {
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo2.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
 
+  const projects: BubbleProject[] = [
+    {
+      id: 1,
+      name: 'Sprinternship™',
+      url: 'https://webs.cs.fiu.edu/sprinternship/',
+      gradient: BUBBLE_GRADIENTS[0],
+    },
+    {
+      id: 2,
+      name: 'Partners',
+      url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship-industry/',
+      gradient: BUBBLE_GRADIENTS[1],
+    },
+    {
+      id: 3,
+      name: 'Upskilling Workshops',
+      url: 'https://webs.cs.fiu.edu/sprinternship/sistas/',
+      gradient: BUBBLE_GRADIENTS[2],
+    },
+    {
+      id: 4,
+      name: 'Career Roadmap',
+      url: 'https://webs.cs.fiu.edu/sprinternship/roadmap/',
+      gradient: BUBBLE_GRADIENTS[3],
+    },
+    {
+      id: 5,
+      name: 'Research',
+      url: 'https://webs.cs.fiu.edu/sprinternship/research/',
+      gradient: BUBBLE_GRADIENTS[4],
+    },
+  ];
+
   useEffect(() => {
     // Keep bubbles only in the upper/middle area
-    const newBubbles = PROJECTS.map((project) => ({
+    const newBubbles = projects.map((project) => ({
       ...project,
       color: project.gradient,
       x: 10 + Math.random() * 80, 
@@ -251,7 +249,7 @@ const Index = () => {
       </div>
 
       {/* Floating project bubbles – clustered around upper/middle */}
-      <div className="absolute inset-0 z-[45]">
+      <div className="absolute inset-0 z-45">
         {bubbles.map((bubble) => (
           <FloatingBubble
             key={`${bubble.id}-${bubble.x}-${bubble.y}`}
