@@ -41,6 +41,7 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
   const textShadow = project.textColor
     ? '0 1px 2px rgba(255, 255, 255, 0.55)'
     : '0 2px 5px rgba(8, 30, 63, 0.95), 0 0 2px rgba(8, 30, 63, 0.9)';
+  const keepTrademarkOnSameLine = project.name.endsWith('™');
 
   return (
     <div
@@ -74,7 +75,9 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
         {/* High-contrast text sized to remain inside the bubble on narrow screens */}
         <div
           data-bubble-label
-          className="relative z-10 w-[calc(100%-1rem)] text-[13px] sm:text-sm md:text-base font-extrabold leading-tight tracking-[-0.025em] text-center [overflow-wrap:anywhere]"
+          className={`relative z-10 w-[calc(100%-1rem)] text-[13px] sm:text-sm md:text-base font-extrabold leading-tight tracking-[-0.025em] text-center ${
+            keepTrademarkOnSameLine ? 'whitespace-nowrap' : '[overflow-wrap:anywhere]'
+          }`}
           style={{ color: textColor, textShadow }}
         >
           {project.name}
