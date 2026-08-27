@@ -42,6 +42,9 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
     ? '0 1px 2px rgba(255, 255, 255, 0.55)'
     : '0 2px 5px rgba(8, 30, 63, 0.95), 0 0 2px rgba(8, 30, 63, 0.9)';
   const keepTrademarkOnSameLine = project.name.endsWith('™');
+  const nameWithoutTrademark = keepTrademarkOnSameLine
+    ? project.name.slice(0, -1)
+    : project.name;
 
   return (
     <div
@@ -80,7 +83,13 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
           }`}
           style={{ color: textColor, textShadow }}
         >
-          {project.name}
+          {keepTrademarkOnSameLine ? (
+            <span className="whitespace-nowrap">
+              {nameWithoutTrademark}<sup data-trademark className="ml-px text-[0.42em] leading-none align-super">™</sup>
+            </span>
+          ) : (
+            nameWithoutTrademark
+          )}
         </div>
       </div>
 
