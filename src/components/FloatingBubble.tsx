@@ -85,7 +85,7 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
         >
           {keepTrademarkOnSameLine ? (
             <span className="whitespace-nowrap">
-              {nameWithoutTrademark}<sup data-trademark className="ml-px text-[0.42em] leading-none align-super">™</sup>
+              {nameWithoutTrademark}<sup data-trademark className="ml-px text-[0.5em] leading-none align-super">™</sup>
             </span>
           ) : (
             nameWithoutTrademark
