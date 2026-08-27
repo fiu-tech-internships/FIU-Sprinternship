@@ -47,32 +47,32 @@ const Index = () => {
   const projects: BubbleProject[] = [
     {
       id: 1,
-      name: 'Sprinternship™',
+      name: 'SPRINTERNSHIP™',
       url: 'https://webs.cs.fiu.edu/sprinternship/',
       gradient: BUBBLE_GRADIENTS[0],
     },
     {
       id: 2,
-      name: 'Partners',
+      name: 'PARTNERS',
       url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship-industry/',
       gradient: BUBBLE_GRADIENTS[1],
     },
     {
       id: 3,
-      name: 'Upskilling Workshops',
+      name: 'UPSKILLING WORKSHOPS',
       url: 'https://webs.cs.fiu.edu/sprinternship/sistas/',
       gradient: BUBBLE_GRADIENTS[2],
     },
     {
       id: 4,
-      name: 'Career Roadmap',
-      url: 'https://webs.cs.fiu.edu/sprinternship/roadmap/',
+      name: 'STUDENTS',
+      url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship/',
       gradient: BUBBLE_GRADIENTS[3],
     },
     {
       id: 5,
-      name: 'Research',
-      url: 'https://webs.cs.fiu.edu/sprinternship/research/',
+      name: 'CAREER ROADMAP',
+      url: 'https://webs.cs.fiu.edu/sprinternship/roadmap/',
       gradient: BUBBLE_GRADIENTS[4],
     },
   ];
