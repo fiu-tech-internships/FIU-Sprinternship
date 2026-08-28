@@ -44,6 +44,8 @@ Welcome to the documentation for the FIU Tech Internships website. This guide wi
 - **GitHub Repository**: [https://github.com/fiu-tech-internships/FIU-Sprinternship](https://github.com/fiu-tech-internships/FIU-Sprinternship)
 - **Tech Stack**: React, TypeScript, Vite, Tailwind CSS
 
+- **Run locally**: ```npm run dev -- --host 127.0.0.1```
+
 ## Who Is This For?
 
 This documentation is designed for:
