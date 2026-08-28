@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import FloatingBubble from '../components/FloatingBubble';
+import { useBubblePhysics } from '../hooks/usePhysics';
+import { useIsMobile } from '../hooks/use-mobile';
 import { useNavigate } from 'react-router-dom';
 
 type BubbleProject = {
@@ -11,6 +13,12 @@ type BubbleProject = {
   color?: string;
   x?: number;
   y?: number;
+};
+
+type ActiveBubbleProject = BubbleProject & {
+  color: string;
+  x: number;
+  y: number;
 };
 
 const FIU = {
@@ -36,58 +44,87 @@ const BUBBLE_GRADIENTS = [
   `linear-gradient(135deg, ${FIU.brightGold}, ${FIU.magenta})`,
 ];
 
+const PROJECTS: BubbleProject[] = [
+  {
+    id: 1,
+    name: 'SPRINTERNSHIP™',
+    url: 'https://webs.cs.fiu.edu/sprinternship/',
+    gradient: BUBBLE_GRADIENTS[0],
+  },
+  {
+    id: 2,
+    name: 'PARTNERS',
+    url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship-industry/',
+    gradient: BUBBLE_GRADIENTS[1],
+  },
+  {
+    id: 3,
+    name: 'UPSKILLING WORKSHOPS',
+    url: 'https://webs.cs.fiu.edu/sprinternship/sistas/',
+    gradient: BUBBLE_GRADIENTS[2],
+  },
+  {
+    id: 4,
+    name: 'STUDENTS',
+    url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship/',
+    gradient: BUBBLE_GRADIENTS[3],
+  },
+  {
+    id: 5,
+    name: 'CAREER ROADMAP',
+    url: 'https://webs.cs.fiu.edu/sprinternship/roadmap/',
+    gradient: BUBBLE_GRADIENTS[4],
+  },
+];
+
+type FloatingBubbleLayerProps = {
+  bubbles: ActiveBubbleProject[];
+  onBubbleClick: (bubble: ActiveBubbleProject) => void;
+};
+
+const FloatingBubbleLayer: React.FC<FloatingBubbleLayerProps> = ({
+  bubbles,
+  onBubbleClick,
+}) => {
+  const isMobile = useIsMobile();
+  const bubbleRadius = isMobile ? 64 : 72;
+  const positions = useBubblePhysics(bubbles, bubbleRadius);
+
+  return (
+    <div className="absolute inset-0 z-[45]" data-bubble-field>
+      {bubbles.map((bubble) => {
+        const position = positions[bubble.id];
+
+        if (!position) return null;
+
+        return (
+          <FloatingBubble
+            key={bubble.id}
+            project={bubble}
+            position={position}
+            bubbleRadius={bubbleRadius}
+            onClick={() => onBubbleClick(bubble)}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 const Index = () => {
   const navigate = useNavigate();
-  const [bubbles, setBubbles] = useState<BubbleProject[]>([]);
+  const [bubbles] = useState<ActiveBubbleProject[]>(() =>
+    PROJECTS.map((project) => ({
+      ...project,
+      color: project.gradient,
+      x: 10 + Math.random() * 80,
+      y: 15 + Math.random() * 70,
+    })),
+  );
 
   // Vite-safe public asset paths (works with GitHub Pages base URL)
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo2.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
-
-  const projects: BubbleProject[] = [
-    {
-      id: 1,
-      name: 'SPRINTERNSHIP™',
-      url: 'https://webs.cs.fiu.edu/sprinternship/',
-      gradient: BUBBLE_GRADIENTS[0],
-    },
-    {
-      id: 2,
-      name: 'PARTNERS',
-      url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship-industry/',
-      gradient: BUBBLE_GRADIENTS[1],
-    },
-    {
-      id: 3,
-      name: 'UPSKILLING WORKSHOPS',
-      url: 'https://webs.cs.fiu.edu/sprinternship/sistas/',
-      gradient: BUBBLE_GRADIENTS[2],
-    },
-    {
-      id: 4,
-      name: 'STUDENTS',
-      url: 'https://webs.cs.fiu.edu/sprinternship/sprinternship/',
-      gradient: BUBBLE_GRADIENTS[3],
-    },
-    {
-      id: 5,
-      name: 'CAREER ROADMAP',
-      url: 'https://webs.cs.fiu.edu/sprinternship/roadmap/',
-      gradient: BUBBLE_GRADIENTS[4],
-    },
-  ];
-
-  useEffect(() => {
-    // Keep bubbles only in the upper/middle area
-    const newBubbles = projects.map((project) => ({
-      ...project,
-      color: project.gradient,
-      x: 10 + Math.random() * 80, 
-      y: 15 + Math.random() * 70,
-    }));
-
-    setBubbles(newBubbles);
-  }, []);
 
   const handleBubbleClick = (project: BubbleProject) => {
     if (project.url) {
@@ -249,15 +286,10 @@ const Index = () => {
       </div>
 
       {/* Floating project bubbles – clustered around upper/middle */}
-      <div className="absolute inset-0 z-45">
-        {bubbles.map((bubble) => (
-          <FloatingBubble
-            key={`${bubble.id}-${bubble.x}-${bubble.y}`}
-            project={bubble}
-            onClick={() => handleBubbleClick(bubble)}
-          />
-        ))}
-      </div>
+      <FloatingBubbleLayer
+        bubbles={bubbles}
+        onBubbleClick={handleBubbleClick}
+      />
 
       {/* Floating particles */}
       <div className="absolute inset-0 pointer-events-none z-20">
