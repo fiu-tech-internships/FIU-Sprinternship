@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import FloatingBubble from '../components/FloatingBubble';
 import { useBubblePhysics } from '../hooks/usePhysics';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -44,6 +44,8 @@ const BUBBLE_GRADIENTS = [
   `linear-gradient(135deg, ${FIU.brightGold}, ${FIU.magenta})`,
 ];
 
+const BUBBLE_BOUNDARY_GAP_PX = 16;
+
 const PROJECTS: BubbleProject[] = [
   {
     id: 1,
@@ -79,16 +81,24 @@ const PROJECTS: BubbleProject[] = [
 
 type FloatingBubbleLayerProps = {
   bubbles: ActiveBubbleProject[];
+  topBoundaryPx: number;
+  bottomBoundaryPx: number;
   onBubbleClick: (bubble: ActiveBubbleProject) => void;
 };
 
 const FloatingBubbleLayer: React.FC<FloatingBubbleLayerProps> = ({
   bubbles,
+  topBoundaryPx,
+  bottomBoundaryPx,
   onBubbleClick,
 }) => {
   const isMobile = useIsMobile();
   const bubbleRadius = isMobile ? 68 : 76;
-  const positions = useBubblePhysics(bubbles, bubbleRadius);
+  const positions = useBubblePhysics(bubbles, {
+    radiusPx: bubbleRadius,
+    topBoundaryPx,
+    bottomBoundaryPx,
+  });
 
   return (
     <div className="absolute inset-0 z-[45]" data-bubble-field>
@@ -113,6 +123,10 @@ const FloatingBubbleLayer: React.FC<FloatingBubbleLayerProps> = ({
 
 const Index = () => {
   const navigate = useNavigate();
+  const brandHeaderRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+  const [bubbleCeiling, setBubbleCeiling] = useState(0);
+  const [bubbleFloor, setBubbleFloor] = useState(() => window.innerHeight);
   const [bubbles] = useState<ActiveBubbleProject[]>(() =>
     PROJECTS.map((project) => ({
       ...project,
@@ -125,6 +139,37 @@ const Index = () => {
   // Vite-safe public asset paths (works with GitHub Pages base URL)
   const fiuLogo = `${import.meta.env.BASE_URL}fiu-kfscis-logo2.png`;
   const heroOverlay1 = `${import.meta.env.BASE_URL}fiu-panther.png`;
+
+  useLayoutEffect(() => {
+    const brandHeader = brandHeaderRef.current;
+    const footer = footerRef.current;
+
+    if (!brandHeader || !footer) return;
+
+    const updateBubbleBoundaries = () => {
+      setBubbleCeiling(
+        Math.ceil(
+          brandHeader.getBoundingClientRect().bottom + BUBBLE_BOUNDARY_GAP_PX,
+        ),
+      );
+      setBubbleFloor(
+        Math.floor(
+          footer.getBoundingClientRect().top - BUBBLE_BOUNDARY_GAP_PX,
+        ),
+      );
+    };
+
+    const resizeObserver = new ResizeObserver(updateBubbleBoundaries);
+    resizeObserver.observe(brandHeader);
+    resizeObserver.observe(footer);
+    window.addEventListener('resize', updateBubbleBoundaries);
+    updateBubbleBoundaries();
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateBubbleBoundaries);
+    };
+  }, []);
 
   const handleBubbleClick = (project: BubbleProject) => {
     if (project.url) {
@@ -244,7 +289,11 @@ const Index = () => {
       />
 
       {/* Top centered brand */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[92vw] max-w-5xl px-4">
+      <div
+        ref={brandHeaderRef}
+        className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[92vw] max-w-5xl px-4"
+        data-brand-header
+      >
         <div className="flex flex-col items-center justify-center text-center">
           <button
             onClick={() => navigate('/')}
@@ -285,9 +334,19 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Invisible upper collision boundary below the brand title */}
+      <div
+        aria-hidden="true"
+        className="absolute left-0 right-0 z-[44] h-px pointer-events-none opacity-0"
+        data-bubble-ceiling
+        style={{ top: bubbleCeiling }}
+      />
+
       {/* Floating project bubbles – clustered around upper/middle */}
       <FloatingBubbleLayer
         bubbles={bubbles}
+        topBoundaryPx={bubbleCeiling}
+        bottomBoundaryPx={bubbleFloor}
         onBubbleClick={handleBubbleClick}
       />
 
@@ -317,7 +376,9 @@ const Index = () => {
 
       {/* Bottom FIU wordmark bar */}
       <div
+        ref={footerRef}
         className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-2 px-4 pointer-events-none z-50"
+        data-brand-footer
         style={{
           borderTop: `1px solid ${FIU.gold}33`,
           background: `linear-gradient(0deg, ${FIU.blue}CC, transparent)`,
@@ -336,6 +397,14 @@ const Index = () => {
           Florida International University
         </span>
       </div>
+
+      {/* Invisible lower collision boundary above the FIU wordmark bar */}
+      <div
+        aria-hidden="true"
+        className="absolute left-0 right-0 z-[44] h-px pointer-events-none opacity-0"
+        data-bubble-floor
+        style={{ top: bubbleFloor }}
+      />
     </div>
   );
 };
