@@ -1,6 +1,5 @@
 import React from 'react';
-import { usePhysics } from '../hooks/usePhysics';
-import { useIsMobile } from '../hooks/use-mobile';
+import type { BubblePosition } from '../hooks/usePhysics';
 
 interface FloatingBubbleProps {
   project: {
@@ -10,24 +9,20 @@ interface FloatingBubbleProps {
     img?: string;
     color: string;
     textColor?: string;
-    x: number;
-    y: number;
     animationDelay?: number;
     animationDuration?: number;
   };
+  position: BubblePosition;
+  bubbleRadius: number;
   onClick: () => void;
-  resetTrigger?: number;
 }
 
 const FloatingBubble: React.FC<FloatingBubbleProps> = ({
   project,
+  position,
+  bubbleRadius,
   onClick,
-  resetTrigger,
 }) => {
-  const isMobile = useIsMobile();
-  const bubbleRadius = isMobile ? 64 : 72;
-  const position = usePhysics(project.x, project.y, 0.3, resetTrigger, bubbleRadius);
-
   const isGradient = project.color.includes('gradient');
   const bubbleBackground = isGradient
     ? project.color
@@ -48,10 +43,11 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
 
   return (
     <div
+      data-bubble-body={project.id}
       className="absolute z-30 cursor-pointer"
       style={{
-        left: `${(position.x / 100) * window.innerWidth - bubbleRadius}px`,
-        top: `${(position.y / 100) * window.innerHeight - bubbleRadius}px`,
+        left: `${position.x - bubbleRadius}px`,
+        top: `${position.y - bubbleRadius}px`,
         animationDelay: `${project.animationDelay ?? 0}s`,
         animationDuration: `${project.animationDuration ?? 3}s`,
       }}
@@ -60,8 +56,12 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
       {/* Bigger bubble container */}
       <div
         data-bubble
-        className="w-32 h-32 md:w-36 md:h-36 rounded-full flex flex-col items-center justify-center shadow-2xl hover:animate-pulse"
-        style={{ background: bubbleBackground }}
+        className="rounded-full flex flex-col items-center justify-center shadow-2xl hover:animate-pulse"
+        style={{
+          background: bubbleBackground,
+          width: bubbleRadius * 2,
+          height: bubbleRadius * 2,
+        }}
       >
         <div className="mb-1 flex items-center justify-center">
           {project.img ? (
