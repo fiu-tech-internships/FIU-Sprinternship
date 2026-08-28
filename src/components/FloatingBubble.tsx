@@ -53,8 +53,12 @@ const FloatingBubble: React.FC<FloatingBubbleProps> = ({
       {/* Bigger bubble container */}
       <div
         data-bubble
-        className="w-32 h-32 md:w-36 md:h-36 rounded-full flex flex-col items-center justify-center shadow-2xl hover:animate-pulse"
-        style={{ background: bubbleBackground }}
+        className="rounded-full flex flex-col items-center justify-center shadow-2xl hover:animate-pulse"
+        style={{
+          background: bubbleBackground,
+          width: bubbleRadius * 2,
+          height: bubbleRadius * 2,
+        }}
       >
         <div className="mb-1 flex items-center justify-center">
           {project.img ? (

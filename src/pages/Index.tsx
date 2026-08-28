@@ -87,7 +87,7 @@ const FloatingBubbleLayer: React.FC<FloatingBubbleLayerProps> = ({
   onBubbleClick,
 }) => {
   const isMobile = useIsMobile();
-  const bubbleRadius = isMobile ? 64 : 72;
+  const bubbleRadius = isMobile ? 68 : 76;
   const positions = useBubblePhysics(bubbles, bubbleRadius);
 
   return (
