@@ -14,15 +14,7 @@ type PhysicsBody = BubbleSeed & {
   vy: number;
 };
 
-type BubblePhysicsOptions = {
-  radiusPx: number;
-  topBoundaryPx?: number;
-  bottomBoundaryPx?: number;
-  speed?: number;
-  resetTrigger?: number;
-};
-
-const COLLISION_RESTITUTION = 1;
+const COLLISION_RESTITUTION = 0.92;
 const MAX_FRAME_SECONDS = 1 / 30;
 
 const createVelocity = (speed: number) => {
@@ -38,25 +30,15 @@ const createVelocity = (speed: number) => {
 const createBodies = (
   seeds: BubbleSeed[],
   radiusPx: number,
-  topBoundaryPx: number,
-  bottomBoundaryPx: number,
   speed: number,
 ): PhysicsBody[] => {
   const width = window.innerWidth;
   const height = window.innerHeight;
-  const maxY = Math.max(
-    radiusPx,
-    Math.min(height - radiusPx, bottomBoundaryPx - radiusPx),
-  );
-  const minY = Math.min(
-    maxY,
-    Math.max(radiusPx, topBoundaryPx + radiusPx),
-  );
 
   return seeds.map((seed) => ({
     id: seed.id,
     x: Math.max(radiusPx, Math.min(width - radiusPx, (seed.x / 100) * width)),
-    y: Math.max(minY, Math.min(maxY, (seed.y / 100) * height)),
+    y: Math.max(radiusPx, Math.min(height - radiusPx, (seed.y / 100) * height)),
     ...createVelocity(speed),
   }));
 };
@@ -67,24 +49,9 @@ const toPositionMap = (bodies: PhysicsBody[]) =>
     return positions;
   }, {});
 
-const bounceOffViewport = (
-  body: PhysicsBody,
-  radiusPx: number,
-  topBoundaryPx: number,
-  bottomBoundaryPx: number,
-) => {
+const bounceOffViewport = (body: PhysicsBody, radiusPx: number) => {
   const maxX = Math.max(radiusPx, window.innerWidth - radiusPx);
-  const maxY = Math.max(
-    radiusPx,
-    Math.min(
-      window.innerHeight - radiusPx,
-      bottomBoundaryPx - radiusPx,
-    ),
-  );
-  const minY = Math.min(
-    maxY,
-    Math.max(radiusPx, topBoundaryPx + radiusPx),
-  );
+  const maxY = Math.max(radiusPx, window.innerHeight - radiusPx);
 
   if (body.x <= radiusPx) {
     body.x = radiusPx;
@@ -94,8 +61,8 @@ const bounceOffViewport = (
     body.vx = -Math.abs(body.vx);
   }
 
-  if (body.y <= minY) {
-    body.y = minY;
+  if (body.y <= radiusPx) {
+    body.y = radiusPx;
     body.vy = Math.abs(body.vy);
   } else if (body.y >= maxY) {
     body.y = maxY;
@@ -146,26 +113,16 @@ const resolveBubbleCollision = (
 
 export const useBubblePhysics = (
   seeds: BubbleSeed[],
-  {
-    radiusPx,
-    topBoundaryPx = 0,
-    bottomBoundaryPx = Number.POSITIVE_INFINITY,
-    speed = 70,
-    resetTrigger = 0,
-  }: BubblePhysicsOptions,
+  radiusPx: number,
+  speed: number = 70,
+  resetTrigger: number = 0,
 ) => {
   const bodiesRef = useRef<PhysicsBody[]>([]);
   const animationRef = useRef<number | null>(null);
   const lastTimeRef = useRef(0);
   const previousResetTriggerRef = useRef(resetTrigger);
   const [positions, setPositions] = useState<Record<number, BubblePosition>>(() => {
-    const bodies = createBodies(
-      seeds,
-      radiusPx,
-      topBoundaryPx,
-      bottomBoundaryPx,
-      speed,
-    );
+    const bodies = createBodies(seeds, radiusPx, speed);
     bodiesRef.current = bodies;
     return toPositionMap(bodies);
   });
@@ -176,13 +133,7 @@ export const useBubblePhysics = (
       seeds.every((seed) => bodiesRef.current.some((body) => body.id === seed.id));
 
     if (!hasSameBodies) {
-      bodiesRef.current = createBodies(
-        seeds,
-        radiusPx,
-        topBoundaryPx,
-        bottomBoundaryPx,
-        speed,
-      );
+      bodiesRef.current = createBodies(seeds, radiusPx, speed);
     } else if (previousResetTriggerRef.current !== resetTrigger) {
       bodiesRef.current.forEach((body) => {
         Object.assign(body, createVelocity(speed));
@@ -190,14 +141,7 @@ export const useBubblePhysics = (
     }
 
     previousResetTriggerRef.current = resetTrigger;
-    bodiesRef.current.forEach((body) =>
-      bounceOffViewport(
-        body,
-        radiusPx,
-        topBoundaryPx,
-        bottomBoundaryPx,
-      ),
-    );
+    bodiesRef.current.forEach((body) => bounceOffViewport(body, radiusPx));
     setPositions(toPositionMap(bodiesRef.current));
     lastTimeRef.current = 0;
 
@@ -218,12 +162,7 @@ export const useBubblePhysics = (
       bodies.forEach((body) => {
         body.x += body.vx * deltaSeconds;
         body.y += body.vy * deltaSeconds;
-        bounceOffViewport(
-          body,
-          radiusPx,
-          topBoundaryPx,
-          bottomBoundaryPx,
-        );
+        bounceOffViewport(body, radiusPx);
       });
 
       const minimumDistance = radiusPx * 2;
@@ -242,14 +181,7 @@ export const useBubblePhysics = (
           }
         }
 
-        bodies.forEach((body) =>
-          bounceOffViewport(
-            body,
-            radiusPx,
-            topBoundaryPx,
-            bottomBoundaryPx,
-          ),
-        );
+        bodies.forEach((body) => bounceOffViewport(body, radiusPx));
       }
 
       setPositions(toPositionMap(bodies));
@@ -263,14 +195,7 @@ export const useBubblePhysics = (
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [
-    bottomBoundaryPx,
-    radiusPx,
-    resetTrigger,
-    seeds,
-    speed,
-    topBoundaryPx,
-  ]);
+  }, [radiusPx, resetTrigger, seeds, speed]);
 
   return positions;
 };
